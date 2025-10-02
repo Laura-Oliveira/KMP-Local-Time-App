@@ -1,4 +1,7 @@
 package com.kmp.time.viewModel
 
-class CityTimeViewModel {
+import androidx.lifecycle.ViewModel
+
+class CityTimeViewModel: ViewModel()
+{
 }
