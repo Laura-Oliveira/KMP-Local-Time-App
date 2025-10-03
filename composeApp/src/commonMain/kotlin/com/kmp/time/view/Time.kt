@@ -35,10 +35,10 @@ fun Time() {
                 .fillMaxSize()
                 .safeContentPadding()
         ) {
-            // Topo: TextField e Button
+            //Top: Textfield City
             Column(
                 modifier = Modifier
-                    .align(Alignment.TopCenter) // fica no topo
+                    .align(Alignment.TopCenter)
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -46,67 +46,25 @@ fun Time() {
                     value = location,
                     onValueChange = { location = it },
                     placeholder = { Text("Enter the city") }
-                )
+                )//Textfield
 
+                //Spacer
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(onClick = { timeAtLocation = calculateCurrentTime(location) }) {
                     Text("Show Time at Location")
-                }
-            }
+                }//Button
+            }//Column
 
-            // Centro: horário
+            //Center: Time
             Text(
                 text = timeAtLocation,
                 style = MaterialTheme.typography.headlineLarge,
                 modifier = Modifier.align(Alignment.Center)
-            )
-        }
-    }
-}
-
-
-
-//    Column(
-//            modifier = Modifier
-//                .safeContentPadding()
-//                .fillMaxSize(),
-//            horizontalAlignment = Alignment.CenterHorizontally // 👈 centraliza dentro da Column
-//        ) {
-//            TextField(
-//                value = location, onValueChange = { location = it },
-//                placeholder = { Text("Enter the city") })
-//
-//            Spacer(modifier = Modifier.padding(top = 8.dp))
-//
-//            Button(onClick = { timeAtLocation = calculateCurrentTime(location) }) {
-//                Text("Show Time at Location")
-//            }
-//
-//            // Espaçamento entre o botão e o texto
-//            Spacer(modifier = Modifier.padding(top = 16.dp))
-//
-//            // Horário centralizado abaixo do botão
-//            Text(
-//                text = timeAtLocation,
-//                style = MaterialTheme.typography.headlineMedium
-//            )
-//
-//            Spacer(modifier = Modifier.padding(top = 16.dp))
-//        }
-//    }
-//}
-
-//=================== Navegador
-//val mapCityToTimeZone = mapOf(
-//    "sao paulo" to -3, // UTC-3
-//    "nova york" to -4, // UTC-4 (horário de verão não considerado)
-//    "barcelona" to 2,  // UTC+2
-//    "tokyo" to 9       // UTC+9
-//)
-
-
-
+            )//Text
+        }//Box
+    }//Material Theme
+}//Composable
 
 //Timezones
 val mapCityToTimeZone = mapOf(
@@ -117,7 +75,8 @@ val mapCityToTimeZone = mapOf(
 )
 
 @OptIn(ExperimentalTime::class)
-fun calculateCurrentTime(location: String): String {
+fun calculateCurrentTime(location: String): String
+{
     val city = location.lowercase().trim()
     val timezoneId = mapCityToTimeZone[city] ?: return "no city selected"
 
@@ -131,9 +90,6 @@ fun calculateCurrentTime(location: String): String {
     val second = localTime.second.toString().padStart(2, '0')
 
     return "$hour:$minute:$second"
-
-//    return localTime.toString()
-    // return "%02d:%02d:%02d".format(localTime.hour, localTime.minute, localTime.second)
 }
 
 
