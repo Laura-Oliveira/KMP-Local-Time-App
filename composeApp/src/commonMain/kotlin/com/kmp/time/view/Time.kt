@@ -1,9 +1,7 @@
 package com.kmp.time.view
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -21,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -65,6 +62,8 @@ fun Time() {
                 modifier = Modifier.align(Alignment.Center)
             )
         }
+    }
+}
 
 
 
@@ -95,12 +94,23 @@ fun Time() {
 //
 //            Spacer(modifier = Modifier.padding(top = 16.dp))
 //        }
-    }
-}
+//    }
+//}
+
+//=================== Navegador
+//val mapCityToTimeZone = mapOf(
+//    "sao paulo" to -3, // UTC-3
+//    "nova york" to -4, // UTC-4 (horário de verão não considerado)
+//    "barcelona" to 2,  // UTC+2
+//    "tokyo" to 9       // UTC+9
+//)
+
+
+
 
 //Timezones
 val mapCityToTimeZone = mapOf(
-    "sao paulo" to "America/Sao_Paulo",
+    "são paulo" to "America/Sao_Paulo",
     "new york" to "America/New_York",
     "madrid" to "Europe/Madrid",
     "tokyo" to "Asia/Tokyo"
@@ -125,3 +135,6 @@ fun calculateCurrentTime(location: String): String {
 //    return localTime.toString()
     // return "%02d:%02d:%02d".format(localTime.hour, localTime.minute, localTime.second)
 }
+
+
+

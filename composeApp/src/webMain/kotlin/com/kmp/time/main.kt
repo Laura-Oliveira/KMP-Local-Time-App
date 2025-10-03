@@ -7,6 +7,6 @@ import com.kmp.time.view.Time
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     ComposeViewport {
-        Time()
+        TimeWeb()
     }
 }
