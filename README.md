@@ -1,4 +1,4 @@
-#KMP Local Time App
+# KMP Local Time App
 
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
 
