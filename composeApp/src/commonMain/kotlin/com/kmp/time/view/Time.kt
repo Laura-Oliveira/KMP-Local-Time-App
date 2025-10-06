@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -36,7 +37,7 @@ data class Country(val name: String, val zone: TimeZone)
 
 @OptIn(ExperimentalTime::class)
 fun currentTimeAt(location: String, zone: TimeZone): String {
-  //  val city = location.lowercase().trim()
+    //  val city = location.lowercase().trim()
     //  val timezoneId = mapCityToTimeZone[city] ?: return "no city selected"
 
     val timezone = zone
@@ -60,46 +61,71 @@ fun countries() = listOf(
 )
 
 @Composable
-fun Time()
-{
+fun Time() {
     MaterialTheme {
         var showCountries by remember { mutableStateOf(false) }
         var timeAtLocation by remember { mutableStateOf("No location selected") }
+        var selectedCountry by remember { mutableStateOf<Country?>(null) }
 
-        Column(
+        Box(
             modifier = Modifier
-                .padding(20.dp)
+                .fillMaxSize()
                 .safeContentPadding()
-                .fillMaxSize(),
         ) {
-            Text(
-                timeAtLocation,
-                style = TextStyle(fontSize = 20.sp),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally)
-            )
-            Row(modifier = Modifier.padding(start = 20.dp, top = 10.dp)) {
-                DropdownMenu(
-                    expanded = showCountries,
-                    onDismissRequest = { showCountries = false }
-                ) {
-                    countries().forEach { (name, zone) ->
-                        DropdownMenuItem(
-                            text = {   Text(name)},
-                            onClick = {
-                                timeAtLocation = currentTimeAt(name, zone)
-                                showCountries = false
-                            }
-                        )
-                    }//list
-                }//Dropdown Menu
-            }//Row
+            Column(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .safeContentPadding()
+                    .fillMaxSize()
+                    .align(Alignment.TopCenter),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-            Button(modifier = Modifier.padding(start = 20.dp, top = 10.dp),
-                onClick = { showCountries = !showCountries }) {
-                Text("Select Location")
-            }//Button
-        }//Column
+
+                Row(modifier = Modifier.padding(start = 20.dp, top = 10.dp)) {
+                    DropdownMenu(
+                        expanded = showCountries,
+                        onDismissRequest = { showCountries = false }
+                    ) {
+                        countries().forEach { country ->
+                            DropdownMenuItem(
+                                text = { Text(country.name) },
+                                onClick = {
+                                    selectedCountry = Country(country.name, country.zone)
+                                    timeAtLocation = currentTimeAt(country.name, country.zone)
+                                    showCountries = false
+                                }
+                            )
+                        }//list
+                    }//Dropdown Menu
+                }//Row
+                Button(
+                    modifier = Modifier.padding(10.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    onClick = { showCountries = !showCountries })
+                {
+                    Text("Select Location")
+                }//Button
+
+                Text(
+                    text = when {
+                        selectedCountry != null -> "${selectedCountry?.name}: $timeAtLocation"
+                        else -> "No Location Selected"
+                                },
+
+//                    if(timeAtLocation != "No location selected")
+//                    { "Current Time $timeAtLocation" }
+//                    else
+//                    { timeAtLocation },
+                    style = TextStyle(fontSize = 20.sp),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentSize(Alignment.Center)
+                )//Time
+            }//Column
+        }//Box
     }//MaterialTheme
 }//Composable
 
